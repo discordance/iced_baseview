@@ -1,14 +1,14 @@
 [package]
-name = "iced_baseview"
-version = "0.0.2"
 authors = ["Billy Messenger <BillyDM@protonmail.com>"]
-edition = "2018"
-description = "A baseview runtime for Iced (WIP)"
-license = "MIT"
-repository = "https://github.com/BillyDM/iced_baseview"
-documentation = "https://docs.rs/iced_baseview"
-keywords = ["gui", "ui", "graphics", "interface", "widgets"]
 categories = ["gui"]
+description = "A baseview runtime for Iced (WIP)"
+documentation = "https://docs.rs/iced_baseview"
+edition = "2018"
+keywords = ["gui", "ui", "graphics", "interface", "widgets"]
+license = "MIT"
+name = "iced_baseview"
+repository = "https://github.com/BillyDM/iced_baseview"
+version = "0.0.2"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -42,13 +42,13 @@ async-std = ["iced_futures/async-std"]
 palette = ["iced_core/palette"]
 
 [dependencies]
-iced_core = "0.4"
-iced_futures = "0.3"
-iced_native =  "0.4"
-iced_graphics = "0.2"
-iced_wgpu = { version = "0.4", optional = true }
-iced_glow = { version = "0.2", optional = true }
-raw-gl-context = { version = "0.1", optional = true }
-keyboard-types = { version = "0.5", default-features = false }
-baseview = { git = "https://github.com/RustAudio/baseview.git", rev = "e7a6c661eff90000b5a62d28fb8e1eec3997d2aa" }
+baseview = {git = "https://github.com/RustAudio/baseview.git", rev = "e7a6c661eff90000b5a62d28fb8e1eec3997d2aa"}
+iced_core = {git = "https://github.com/hecrj/iced", rev = "35c4ad6"}
+iced_futures = {git = "https://github.com/hecrj/iced", rev = "35c4ad6"}
+iced_glow = {git = "https://github.com/hecrj/iced", rev = "35c4ad6", optional = true}
+iced_graphics = {git = "https://github.com/hecrj/iced", rev = "35c4ad6"}
+iced_native = {git = "https://github.com/hecrj/iced", rev = "35c4ad6"}
+iced_wgpu = {git = "https://github.com/hecrj/iced", rev = "35c4ad6", optional = true}
+keyboard-types = {version = "0.5", default-features = false}
+raw-gl-context = {version = "0.1", optional = true}
 raw-window-handle = "0.3"
