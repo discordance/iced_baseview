@@ -28,6 +28,7 @@ fn main() {
             always_redraw: true,
         },
         flags: (),
+        extra_fonts: None
     };
 
     open_blocking::<MyProgram>(settings);
