@@ -20,6 +20,9 @@ pub struct Settings<Flags> {
 
     /// iced_baseview settings
     pub iced_baseview: IcedBaseviewSettings,
+
+    /// Extra fonts to load (excluding the default font)
+    pub extra_fonts: Option<Vec<Vec<u8>>>,
 }
 
 /// Any settings specific to `iced_baseview`.

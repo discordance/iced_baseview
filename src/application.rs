@@ -4,6 +4,7 @@ mod profiler;
 mod state;
 
 use baseview::EventStatus;
+use iced_graphics::core::text::Renderer;
 pub use state::State;
 
 use crate::core;
@@ -24,6 +25,7 @@ use crate::{Clipboard, Error, Proxy, Settings};
 
 use futures::channel::mpsc;
 
+use std::borrow::Cow;
 use std::cell::RefCell;
 use std::mem::ManuallyDrop;
 use std::rc::Rc;
@@ -169,13 +171,20 @@ where
     let compositor_settings = A::renderer_settings();
 
     let window = crate::wrapper::WindowHandleWrapper(window);
-    let (mut compositor, renderer) = C::new(compositor_settings, Some(&window))?;
+    let (mut compositor, mut renderer) = C::new(compositor_settings, Some(&window))?;
     let surface = compositor.create_surface(
         &window,
         viewport.physical_width(),
         viewport.physical_height(),
     );
 
+    if let Some(extra_fonts) = settings.extra_fonts {
+        for font in &extra_fonts {
+            let font = font.clone();
+            renderer.load_font(Cow::Owned(font));
+        }
+    }
+    
     let (window_queue, window_queue_rx) = WindowQueue::new();
     let event_status = Rc::new(RefCell::new(baseview::EventStatus::Ignored));
 
