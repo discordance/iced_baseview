@@ -7,21 +7,21 @@ use cfg_if::cfg_if;
 /// For use until baseview migrates to v0.5. Necessary for integrating with wgpu in iced v0.5.
 pub struct WindowHandleWrapper<'a, T: rwh04::HasRawWindowHandle>(pub &'a T);
 
-unsafe impl<'a, T: rwh04::HasRawWindowHandle> rwh05::HasRawWindowHandle
+unsafe impl<'a, T: rwh04::HasRawWindowHandle> raw_window_handle::HasRawWindowHandle
     for WindowHandleWrapper<'a, T>
 {
-    fn raw_window_handle(&self) -> rwh05::RawWindowHandle {
+    fn raw_window_handle(&self) -> raw_window_handle::RawWindowHandle {
         let handle = rwh04::HasRawWindowHandle::raw_window_handle(&self.0);
 
         cfg_if! {
             if #[cfg(target_os = "macos")] {
-                if let rwh04::RawWindowHandle::AppKit(rwh04::AppKitHandle { ns_view, ns_window, .. }) = handle {
-                    let mut h = rwh05::AppKitWindowHandle::empty();
+                if let raw_window_handle::RawWindowHandle::AppKit(raw_window_handle::AppKitWindowHandle { ns_view, ns_window, .. }) = handle {
+                    let mut h = raw_window_handle::AppKitWindowHandle::empty();
 
                     h.ns_view = ns_view;
                     h.ns_window = ns_window;
 
-                    rwh05::RawWindowHandle::AppKit(h)
+                    raw_window_handle::RawWindowHandle::AppKit(h)
                 } else {
                     panic!("Not a macOS handle");
                 }
@@ -52,11 +52,11 @@ unsafe impl<'a, T: rwh04::HasRawWindowHandle> rwh05::HasRawWindowHandle
     }
 }
 
-unsafe impl<'a, T: rwh04::HasRawWindowHandle> rwh05::HasRawDisplayHandle
+unsafe impl<'a, T: rwh04::HasRawWindowHandle> raw_window_handle::HasRawDisplayHandle
     for WindowHandleWrapper<'a, T>
 {
-    fn raw_display_handle(&self) -> rwh05::RawDisplayHandle {
-        use rwh05::*;
+    fn raw_display_handle(&self) -> raw_window_handle::RawDisplayHandle {
+        use raw_window_handle::*;
 
         cfg_if! {
             if #[cfg(target_os = "macos")] {
